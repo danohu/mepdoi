@@ -1,0 +1,95 @@
+
+
+<hr>
+<address></address>
+<!-- hhmts start -->Last modified: Sat Jan 25 10:56:42 CET 2014 <!-- hhmts end -->
+</body> </html>
+
+
+<div class="row">
+    <div class="span12">
+        <h1>Transcribe this declaration</h1>
+    </div>
+  <div id="img_display"></div>
+  
+        <div>
+          <h5>Write here the transcription of section I</h5>
+          <form id="section_one" class="questions form-inline">
+              <textarea id="text" rows="10" style="width:100%;"></textarea>
+          </form>
+          <button class="btn btn-submit">Submit transcription!</button>
+      </div>
+
+<div id="question_text"></div>
+<div id="response_form"></div>
+<div id="question_notes"></div>
+
+      
+</div>
+<style media="screen" type="text/css">
+.questions {
+   display: None
+}
+</style>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+<script src="http://hitconsultants.com/dragscroll_scrollsync/scrollsync.js"></script>
+<script src="http://hitconsultants.com/dragscroll_scrollsync/dragscrollable.js"></script>
+<script src="/static/js/pybossa/pybossa.js" type="text/javascript"></script>
+
+<script>
+    // Your JavaScript code
+    // Needed before this will run
+    //  make spreadsheet with question_id, form
+
+    var questions = {
+     // question ID, dict
+     'question' : {
+
+},
+    }
+
+    var display_image = function(img_url, x_top, y_top, x_bottom, y_bottom){
+      //XXX add in cropping/location
+      $('#img_display').html('<img src="' + img_url + '"/>');
+    }
+
+    var display_form = function(question_id){
+      var form_html = ('<b>form not built yet</b>');
+      $('#response_form').html(form_html)
+    }
+
+    var display_question_info = function(question, notes){
+     // XXX write me!
+     $('#question_text').html(question);
+     $('#question_notes').html(notes);
+     false;
+    }
+
+    pybossa.taskLoaded(function(task, deferred){
+         console.log('task loaded');
+         console.log(task);
+
+      console.log(task.info.image_url);
+        // When the task is loaded, do....
+    });
+
+    pybossa.presentTask(function(task, deferred){
+        display_image(task.info.image_url);
+        display_question(task.info.question, task.info.notes)
+        display_form(task.info.question_id);
+    });
+
+    $(".btn-submit").off('click').on('click', function(){
+                //var answer = $("textarea#text").val();
+                //$("#viewport_" + task.id).hide();
+                var answer = "text answer";
+                pybossa.saveTask(task.id, answer).done(function(data){
+                    console.log("task saved");
+                    //deferred.resolve();
+                    //$("#success").fadeIn();
+                    //setTimeout(function() { $("#success").fadeOut() }, 2000);
+                });
+            });
+    pybossa.run('mepdoi');
+</script>
